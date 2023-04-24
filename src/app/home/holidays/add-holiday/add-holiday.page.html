@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{isAddMode ? 'Add holiday' : 'Edit holiday'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Country</ion-label>
+              <ion-select placeholder="Select country" formControlName="country">
+                <ion-select-option [value]="i" *ngFor="let i of countries">{{i}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">City</ion-label>
+              <ion-input type="text" formControlName="city"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Start date</ion-label>
+            </ion-item>
+            <ion-datetime presentation="date" formControlName="start"></ion-datetime>
+            <ion-item *ngFor="let member of memberFormGroups; let i = index">
+              <div [formGroup]="member">
+                <ion-label position="floating">Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+              </div>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-horizontal">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button color="secondary" fill="outline" (click)="onAddMember()">
+            <ion-icon name="person-add-outline"></ion-icon>Add member
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-horizontal">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button color="primary" expand="full" (click)="onSubmit()">{{isAddMode ? 'Save' : 'Update'}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

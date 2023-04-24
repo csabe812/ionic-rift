@@ -1,0 +1,12 @@
+<ion-card class="ion-text-center" color="light">
+  <ion-card-header>
+    <ion-card-title>Please check where you have already been! :-)</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-row>
+      <ion-col class="ion-padding-horizontal">
+        <div id="mapId" style="height: 300px" leaflet (leafletMapReady)="onMapReady($event)"></div>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

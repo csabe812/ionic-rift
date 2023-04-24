@@ -1,0 +1,50 @@
+<ion-card class="holiday-card ion-text-center" color="medium" *ngIf="!weatherData">
+  <ion-card-header>
+    <ion-card-subtitle>
+      <ion-skeleton-text [animated]="true" style="width: 80%"></ion-skeleton-text>
+    </ion-card-subtitle>
+    <ion-card-title>
+      <ion-skeleton-text [animated]="true" style="width: 60%"></ion-skeleton-text>
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text [animated]="true" style="width: 20%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-skeleton-text [animated]="true" style="width: 20%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
+<ion-card class="holiday-card ion-text-center" color="medium" *ngIf="weatherData">
+  <ion-card-header>
+    <ion-card-subtitle>Weather information</ion-card-subtitle>
+    <ion-card-title>{{weatherData.name}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-row>
+      <ion-col>
+        <img src="http://openweathermap.org/img/wn/{{weatherData.weather[0].icon}}@2x.png" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{parseTemperature(weatherData.main.temp)}}<span>&#8451;</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        {{weatherData.weather[0].description}}
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

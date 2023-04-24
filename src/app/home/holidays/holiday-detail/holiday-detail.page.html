@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="onAddItem()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="!isLoading && holiday">{{holiday.city}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-spinner color="primary" *ngIf="isLoading && !holiday"></ion-spinner>
+        <ion-card *ngIf="!isLoading && holiday">
+          <ion-card-header>
+            <span class="fi fi-{{countryFlagCode}} flag-span"></span>
+            <ion-card-subtitle>{{holiday.country}}</ion-card-subtitle>
+            <ion-card-title>{{holiday.city}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{holiday.start | date: 'yyyy-MM-dd'}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="allItems && allItems.length > 0">
+      <ion-col size-sm="6" offset-sm="3" class="ion-padding-horizontal">
+        <ion-button expand="block" (click)="onShowDetails()">{{showDetails ? 'Hide' : 'Show'}} Details</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="showDetails">
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-row>
+          <ion-col><b>Title</b></ion-col>
+          <ion-col><b>Price</b></ion-col>
+          <ion-col><b>Paid by</b></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item of allItems">
+          <ion-col>{{item.title}}</ion-col>
+          <ion-col>{{item.price}} {{item.currency | uppercase}}</ion-col>
+          <ion-col>{{item.paid}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <!--ion-row *ngIf="showDetails">
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-list>
+          <ion-item *ngFor="let item of allItems">
+            <ion-label>
+              Name:  Price:  Paid by:
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row-->
+
+    <ion-row *ngIf="allItems && allItems.length > 0">
+      <ion-col size-sm="6" offset-sm="3" class="ion-padding-horizontal">
+        <ion-button expand="block" (click)="onSummarize()">{{showSummary ? 'Hide' : 'Show'}} Summary</ion-button>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="showSummary">
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card *ngFor="let member of members | keyvalue">
+          <ion-card-header>
+            <ion-card-title><b>To {{member.key}} owes</b></ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-row *ngIf="member.value.ratio !== 0 || members.size === 1">
+              <ion-col>
+                Nobody owes.
+              </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let element of member.value.fromHowMuch">
+              <ion-col class="ion-text-left">
+                {{element.name}} owes with
+              </ion-col>
+              <ion-col class="ion-text-right">
+                {{element.price}} HUF
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
